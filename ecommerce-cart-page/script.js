@@ -24,9 +24,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const productDiv = document.createElement("div");
       productDiv.classList.add("product");
       productDiv.innerHTML = `
-      <span>${product.name} - $${product.price.toFixed(2)}</span>
-      <button data-id="${product.id}">Add to cart</button>
-      `;
+        <span>${product.name} - $${product.price.toFixed(2)}</span>
+        <button data-id="${product.id}">Add to cart</button>
+        `;
       productList.appendChild(productDiv);
     });
   
@@ -54,11 +54,15 @@ document.addEventListener("DOMContentLoaded", () => {
       if (cart.length > 0) {
         emptyCartMessage.classList.add("hidden");
         cartTotalMessage.classList.remove("hidden");
-        cart.forEach((item) => {
+  
+        // Loop through cart items and display them
+        cart.forEach((item, index) => {
           totalPrice += item.price;
           const cartItem = document.createElement("div");
+          cartItem.classList.add("cart-item");
           cartItem.innerHTML = `
-          ${item.name} - $${item.price.toFixed(2)}
+            ${item.name} - $${item.price.toFixed(2)}
+            <button class="delete-btn" data-index="${index}">Delete</button>
           `;
           cartItems.appendChild(cartItem);
         });
@@ -71,17 +75,32 @@ document.addEventListener("DOMContentLoaded", () => {
   
     // Event listener for the checkout button
     checkOutBtn.addEventListener("click", () => {
-      cart.length = 0;
+      cart.length = 0; // Empty the cart
       totalPriceDisplay.textContent = `$0.00`;
       total.classList.add("hidden");
       alert("Checkout Successfully!!");
       renderCart();
-      saveCart(); // Make sure to update localStorage after checkout
+      saveCart(); // Update localStorage after checkout
     });
   
     // Function to save the cart to localStorage
     function saveCart() {
       localStorage.setItem("cart", JSON.stringify(cart));
+    }
+  
+    // Event listener for delete buttons in the cart
+    cartItems.addEventListener("click", (e) => {
+      if (e.target.classList.contains("delete-btn")) {
+        const index = parseInt(e.target.getAttribute("data-index"));
+        deleteFromCart(index);
+      }
+    });
+  
+    // Function to delete a product from the cart
+    function deleteFromCart(index) {
+      cart.splice(index, 1); // Remove the product from the cart array
+      renderCart(); // Re-render the cart
+      saveCart(); // Update localStorage
     }
   
     // Render the cart on page load if there are items in localStorage

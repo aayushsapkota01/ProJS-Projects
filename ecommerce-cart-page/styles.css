@@ -58,14 +58,27 @@ h2 {
 
 #cart-items {
   margin-bottom: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  justify-content: center;
+}
+
+#cart-items .delete-btn {
+  background-color: #831d1d;
+  color: #fff;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#cart-items .delete-btn:hover {
+  background-color: #530b0b;
 }
 
 #cart-items div {
   padding: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 #cart-total {
