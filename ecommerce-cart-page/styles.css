@@ -58,10 +58,22 @@ h2 {
 
 #cart-items {
   margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+}
+
+#cart-items div {
+  padding: 3px;
 }
 
 #cart-total {
   text-align: right;
+}
+
+#cart-total p {
+  margin-bottom: 10px;
 }
 
 #checkout-btn {
